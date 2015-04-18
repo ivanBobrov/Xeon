@@ -1,0 +1,28 @@
+#super LU cmake file /src/main/solver/superLU/CMakeLists.txt
+
+file(GLOB SUPER_LU_SOURCES . "${CMAKE_CURRENT_SOURCE_DIR}/*.c" "${CMAKE_CURRENT_SOURCE_DIR}/CBLAS/*.c")
+
+set(SUPER_LU_SOURCES
+    ${SUPER_LU_SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/SuperLUSolver.cpp
+)
+
+set(SUPER_LU_INCLUDE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# ---- PARENT SCOPE ----#
+set(SOLVER_SOURCE
+    ${SOLVER_SOURCE}
+    ${SUPER_LU_SOURCES}
+    PARENT_SCOPE
+)
+
+set(SOLVER_INCLUDE_DIRS
+    ${SOLVER_INCLUDE_DIRS}
+    ${SUPER_LU_INCLUDE_DIRS}
+    PARENT_SCOPE
+)
+# ---- ------ ----- ----#
+
+

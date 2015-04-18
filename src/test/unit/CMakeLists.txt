@@ -1,0 +1,13 @@
+#Test abstraction module
+
+set(TEST_INCLUDE_DIRS
+    ${TEST_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    PARENT_SCOPE
+)
+
+set(TEST_SOURCES
+    ${TEST_SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/TestRunner.cpp
+    PARENT_SCOPE
+)

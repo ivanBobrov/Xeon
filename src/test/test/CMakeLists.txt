@@ -1,0 +1,22 @@
+#Test /src/test/test/CMakeLists.txt
+
+set(TEST_TEST_SOURCE "" PARENT_SCOPE)
+set(TEST_TEST_INCLUDE_DIRS "" PARENT_SCOPE)
+
+add_subdirectory(matrix)
+add_subdirectory(solver)
+
+set(TEST_SOURCES
+	${TEST_SOURCES}
+	${TEST_TEST_SOURCE}
+	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+	PARENT_SCOPE
+)
+
+set(TEST_INCLUDE_DIRS
+	${TEST_INCLUDE_DIRS}
+	${TEST_TEST_INCLUDE_DIRS}
+	PARENT_SCOPE
+)
+
+
