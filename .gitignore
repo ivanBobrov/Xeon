@@ -1,3 +1,17 @@
 /.idea
 /bin
 /lib
+
+*.a
+*.lib
+
+**/win32
+**/x64
+**/CMakeFiles
+*.dir/
+cmake_install.cmake
+*.sdf
+*.sln
+*suo
+*.vcxproj*
+CMakeCache.txt

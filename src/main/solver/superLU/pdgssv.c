@@ -1,5 +1,5 @@
 #ifdef MIC_TARGET
-    #pragma offload_attribute (push,target(mic))
+    //#pragma offload_attribute (push,target(mic))
 #endif
 
 #include "pdsp_defs.h"
@@ -255,5 +255,5 @@ pdgssv(int nprocs, SuperMatrix *A, int *perm_c, int *perm_r,
 }
 
 #ifdef MIC_TARGET
-    #pragma offload_attribute (pop)
+    //#pragma offload_attribute (pop)
 #endif

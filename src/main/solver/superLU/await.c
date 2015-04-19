@@ -8,7 +8,7 @@
  */
 
 #ifdef MIC_TARGET
-    #pragma offload_attribute (push,target(mic))
+    //#pragma offload_attribute (push,target(mic))
 #endif
 
 int await(volatile int *status)
@@ -32,5 +32,5 @@ int await(volatile int *status)
 }
 
 #ifdef MIC_TARGET
-    #pragma offload_attribute (pop)
+    //#pragma offload_attribute (pop)
 #endif
