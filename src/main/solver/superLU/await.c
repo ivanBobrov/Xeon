@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 /*
  * -- SuperLU MT routine (version 1.0) --
  * Univ. of California Berkeley, Xerox Palo Alto Research Center,
@@ -6,10 +10,6 @@
  *
  * This routine should NOT be optimized.
  */
-
-#ifdef MIC_TARGET
-    //#pragma offload_attribute (push,target(mic))
-#endif
 
 int await(volatile int *status)
 {
@@ -32,5 +32,5 @@ int await(volatile int *status)
 }
 
 #ifdef MIC_TARGET
-    //#pragma offload_attribute (pop)
+	#pragma offload_attribute(pop)
 #endif

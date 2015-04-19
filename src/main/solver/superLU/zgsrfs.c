@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <math.h>
 #include "pzsp_defs.h"
@@ -434,3 +438,7 @@ zgsrfs(trans_t trans, SuperMatrix *A, SuperMatrix *L, SuperMatrix *U,
     return;
 
 } /* zgsrfs */
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

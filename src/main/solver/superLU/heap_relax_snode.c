@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 /*
  * -- SuperLU_MT routine (version 2.0) --
  * Lawrence Berkeley National Lab, Univ. of California Berkeley,
@@ -115,3 +119,7 @@ heap_relax_snode (
 }
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

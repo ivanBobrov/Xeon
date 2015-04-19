@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 int lsame_(char *ca, char *cb)
 {
 /*  -- LAPACK auxiliary routine (version 2.0) --   
@@ -68,3 +72,7 @@ int lsame_(char *ca, char *cb)
     return ret_val;
     
 } /* lsame_ */
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -350,3 +354,7 @@ pcgstrf_bmod2D(
     } /* for jj ... */
 	
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "pdsp_defs.h"
 
 void
@@ -288,3 +292,7 @@ Preorder(const int pnum, const int n, const int *etree, int *cur_pan,
 }
 #endif
 /* @@@@@@@@@@@@@@ not called @@@@@@@@@@@@@@@@@@ */
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <math.h>
 #include "pdsp_defs.h"
@@ -424,3 +428,7 @@ dgsrfs(trans_t trans, SuperMatrix *A, SuperMatrix *L, SuperMatrix *U,
     return;
 
 } /* dgsrfs */
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

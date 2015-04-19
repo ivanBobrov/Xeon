@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU routine (version 2.0) --
@@ -104,3 +108,7 @@ double r_imag(complex *z)
 }
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

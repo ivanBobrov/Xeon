@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU routine (version 1.0) --
@@ -109,3 +113,7 @@ sp_sgemm(char *trans, int m, int n, int k,
     }
     return 0;    
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

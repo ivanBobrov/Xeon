@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "slu_mt_machines.h"
 
 int
@@ -111,3 +115,7 @@ sp_ienv(int ispec)
 
 } /* sp_ienv_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

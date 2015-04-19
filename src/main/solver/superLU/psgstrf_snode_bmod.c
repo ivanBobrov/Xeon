@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pssp_defs.h"
 
@@ -109,3 +113,7 @@ psgstrf_snode_bmod(
 
     return 0;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

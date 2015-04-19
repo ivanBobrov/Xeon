@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "pdsp_defs.h"
 
 
@@ -162,3 +166,7 @@ pxgstrf_super_bnd_dfs(
 	   pnum, jcol, w, nrow);
 #endif
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include <stdlib.h>
 #include "pdsp_defs.h"
 
@@ -429,3 +433,7 @@ qrnzcnt(int neqns, int adjlen, int *xadj, int *adjncy, int *zfdperm,
     
 } /* qrnzcnt_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

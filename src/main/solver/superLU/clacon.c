@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU routine (version 2.0) --
@@ -204,3 +208,7 @@ L150:
     return 0;
 
 } /* clacon_ */
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

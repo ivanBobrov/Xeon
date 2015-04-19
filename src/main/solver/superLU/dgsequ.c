@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU MT routine (version 2.0) --
@@ -178,3 +182,7 @@ dgsequ(SuperMatrix *A, double *r, double *c, double *rowcnd,
 
 } /* dgsequ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

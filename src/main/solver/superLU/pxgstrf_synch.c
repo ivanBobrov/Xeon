@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 /*
  * -- SuperLU MT routine (version 2.1) --
  * Univ. of California Berkeley, Xerox Palo Alto Research Center,
@@ -374,3 +378,7 @@ int lockoff(int *block)
 }
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

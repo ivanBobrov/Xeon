@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "ArraySquareMatrix.h"
 
 ArraySquareMatrix::ArraySquareMatrix(int size) {
@@ -21,3 +25,7 @@ double ArraySquareMatrix::get(const int i, const int j) const {
 int ArraySquareMatrix::size() const {
     return this->mSize;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

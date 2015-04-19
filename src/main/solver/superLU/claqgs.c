@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU routine (version 2.0) --
@@ -137,3 +141,7 @@ claqgs(SuperMatrix *A, float *r, float *c,
 
 } /* claqgs */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

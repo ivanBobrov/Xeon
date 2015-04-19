@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU routine (version 3.0) --
@@ -472,3 +476,7 @@ sp_sgemv(char *trans, float alpha, SuperMatrix *A, float *x,
 
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU MT routine (version 2.0) --
@@ -141,3 +145,7 @@ sgscon(char *norm, SuperMatrix *L, SuperMatrix *U,
 
 } /* sgscon */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

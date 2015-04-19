@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 /*
  * -- SuperLU MT routine (version 2.2) --
  * Univ. of California Berkeley, Xerox Palo Alto Research Center,
@@ -75,4 +79,8 @@ double dclock()
     return(extract(&tp));
 }
 
+#endif
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
 #endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "HarwellBoeingMatrix.h"
 
 const double HarwellBoeingMatrix::ZERO_VALUE = 0.0;
@@ -162,3 +166,7 @@ int HarwellBoeingMatrix::getNonZeroNumber() const {
 int HarwellBoeingMatrix::size() const {
     return this->mSize;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pdsp_defs.h"
 
@@ -333,3 +337,7 @@ pdgstrf_column_dfs(
     
     return 0;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*  -- translated by f2c (version 19940927).
    You must link the resulting object file with the libraries:
@@ -419,3 +423,7 @@
 
 } /* chemv_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

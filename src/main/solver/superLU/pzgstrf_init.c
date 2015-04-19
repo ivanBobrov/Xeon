@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pzsp_defs.h"
 
@@ -144,3 +148,7 @@ pzgstrf_init(int nprocs, fact_t fact, trans_t trans, yes_no_t refact,
 #endif
 }
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

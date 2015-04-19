@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include <stdio.h>
 #define TRUE_ (1)
 #define FALSE_ (0)
@@ -961,3 +965,7 @@ double pow_di(double *ap, int *bp)
     return(pow);
 }
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pssp_defs.h"
 
@@ -106,3 +110,7 @@ if (irep >= LOCOL && irep >= HICOL && jcol >= LOCOL && jcol <= HICOL)
 
     } /* for each U-segment... */
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

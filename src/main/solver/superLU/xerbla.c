@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 /* Subroutine */ int xerbla_(char *srname, int *info)
 {
 /*  -- LAPACK auxiliary routine (version 2.0) --   
@@ -38,3 +42,7 @@
     return 0;
 } /* xerbla_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 
 /*
@@ -175,3 +179,7 @@ doublecomplex *Mxvec;	/* in/out */
 	
 }
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

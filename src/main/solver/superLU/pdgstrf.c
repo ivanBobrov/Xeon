@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <stdlib.h> /* for getenv and atoi */
 #include "pdsp_defs.h"
@@ -324,3 +328,7 @@ pdgstrf(superlumt_options_t *superlumt_options, SuperMatrix *A, int *perm_r,
 			    A, perm_r, L, U);
 
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "SuperLUSolver.h"
 
 const double SuperLUSolver::EPSILON = 0.00000001;
@@ -89,3 +93,7 @@ void SuperLUSolver::convertSMToVector(IVector *out, SuperMatrix *matrix) {
         out->set(i, nzval[i]);
     }
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "f2c.h"
 
 integer icamax_(integer *n, complex *cx, integer *incx)
@@ -70,3 +74,7 @@ L30:
 } /* icamax_ */
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

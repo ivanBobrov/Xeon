@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <math.h>
 #include <stdlib.h>
@@ -167,3 +171,7 @@ pcgstrf_pivotL(
     return 0;
 }
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pdsp_defs.h"
 
@@ -69,3 +73,7 @@ pxgstrf_relax_snode(
 }
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

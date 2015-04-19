@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pcsp_defs.h"
 
@@ -74,3 +78,7 @@ pcgstrf_snode_dfs(
 
     return 0;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

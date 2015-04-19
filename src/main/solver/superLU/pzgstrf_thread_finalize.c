@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pzsp_defs.h"
 
@@ -122,3 +126,7 @@ pzgstrf_thread_finalize(pzgstrf_threadarg_t *pzgstrf_threadarg,
     printf("** pzgstrf_thread_finalize() called\n");
 #endif
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

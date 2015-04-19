@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "ArrayVector.h"
 
 ArrayVector::ArrayVector(int size) {
@@ -31,3 +35,7 @@ void ArrayVector::set(const int i, const double value) {
 int ArrayVector::size() const {
     return this->mSize;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

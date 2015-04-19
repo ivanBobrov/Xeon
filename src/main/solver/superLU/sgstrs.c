@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pssp_defs.h"
 
@@ -316,3 +320,7 @@ sprint_soln(int n, int nrhs, float *soln)
     for (i = 0; i < n; i++)
 	printf("\t%d: %.10f\n", i, soln[i]);
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

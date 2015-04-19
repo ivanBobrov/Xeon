@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include <math.h>
 #include "slu_dcomplex.h"
 #include "slu_mt_Cnames.h"
@@ -101,3 +105,7 @@ L40:
 
 } /* izmax1_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

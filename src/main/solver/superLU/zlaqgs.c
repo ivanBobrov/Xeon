@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU routine (version 2.0) --
@@ -137,3 +141,7 @@ zlaqgs(SuperMatrix *A, double *r, double *c,
 
 } /* zlaqgs */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

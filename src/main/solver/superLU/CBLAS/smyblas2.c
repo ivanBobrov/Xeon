@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 
 /*
@@ -217,3 +221,7 @@ float *Mxvec;	/* in/out */
 	
 }
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 /* f2c'ed */
 typedef int shortint;
 
@@ -1010,3 +1014,7 @@ L500:
 
 } /* mmdnum_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

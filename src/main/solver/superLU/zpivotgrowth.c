@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <math.h>
 #include "pzsp_defs.h"
@@ -106,3 +110,7 @@ zPivotGrowth(int ncols, SuperMatrix *A, int *perm_c,
     SUPERLU_FREE(inv_perm_c);
     return (rpg);
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 /* ========================================================================== */
 /* === colamd/symamd - a sparse matrix column ordering algorithm ============ */
 /* ========================================================================== */
@@ -3617,3 +3621,7 @@ PRIVATE void colamd_get_debug
 }
 
 #endif /* NDEBUG */
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

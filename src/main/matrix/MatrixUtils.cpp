@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "MatrixUtils.h"
 
 void MatrixUtils::product(IMatrix const *A, IMatrix const *B, IMatrix *result) {
@@ -133,3 +137,7 @@ void MatrixUtils::fillRandomVector(IVector *vector) {
         vector->set(i, getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
     }
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

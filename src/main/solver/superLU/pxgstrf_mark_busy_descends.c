@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "pdsp_defs.h"
 
 void
@@ -94,3 +98,7 @@ if (jcol >= LOCOL && jcol <= HICOL)
 			 
     } /* if bcol_reg < jcol */
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

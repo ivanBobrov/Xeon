@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -437,3 +441,7 @@ if (krep == BADCOL && jj == -1) {
 }
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

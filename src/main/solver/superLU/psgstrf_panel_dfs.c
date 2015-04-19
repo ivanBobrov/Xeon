@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pssp_defs.h"
 
@@ -335,3 +339,7 @@ if (jj == BADCOL) {
     } /* for jj ... */
 
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

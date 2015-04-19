@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pzsp_defs.h"
 
@@ -251,3 +255,7 @@ pzgssv(int nprocs, SuperMatrix *A, int *perm_c, int *perm_r,
     PrintStat(&Gstat);
     StatFree(&Gstat);
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

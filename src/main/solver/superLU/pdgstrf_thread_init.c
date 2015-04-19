@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pdsp_defs.h"
 
@@ -154,3 +158,7 @@ pdgstrf_thread_init(SuperMatrix *A, SuperMatrix *L, SuperMatrix *U,
 
     return (pdgstrf_threadarg);
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

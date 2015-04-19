@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include <stdlib.h>
 #include "pdsp_defs.h"
 
@@ -251,3 +255,7 @@ int cholnzcnt(int neqns, int *xadj, int *adjncy,
     return 0;
 } /* cholnzcnt */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*
  * -- SuperLU MT routine (version 2.2) --
@@ -955,3 +959,7 @@ dPresetMap(
 
 
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "slu_scomplex.h"
 #include "slu_mt_Cnames.h"
 
@@ -94,3 +98,7 @@ L20:
 
 } /* scsum1_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

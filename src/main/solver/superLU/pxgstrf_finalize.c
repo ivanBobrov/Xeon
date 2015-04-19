@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "pdsp_defs.h"
 
 
@@ -33,3 +37,7 @@ pxgstrf_finalize(superlumt_options_t *superlumt_options, SuperMatrix *AC)
     printf("** pxgstrf_finalize() called\n");
 #endif
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

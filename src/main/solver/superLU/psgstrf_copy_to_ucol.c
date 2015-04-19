@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pssp_defs.h"
 
@@ -95,3 +99,7 @@ if (jcol == EMPTY)
     Glu->xusub_end[jcol] = nextu; /* close U[*,jcol] */
     return 0;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

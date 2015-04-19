@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include "pdsp_defs.h"
 
@@ -304,3 +308,7 @@ int dcheck_perm(char *what, int n, int *perm)
 
     return 0;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

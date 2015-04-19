@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*  Elimination tree computation and layout routines */
 
@@ -394,3 +398,7 @@ sp_symetree(
 	finalize_disjoint_sets (pp);
 	return 0;
 } /* SP_SYMETREE */
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

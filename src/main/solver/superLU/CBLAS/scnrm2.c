@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*  -- translated by f2c (version 19940927).
    You must link the resulting object file with the libraries:
@@ -94,3 +98,7 @@ real scnrm2_(integer *n, complex *x, integer *incx)
 
 } /* scnrm2_ */
 
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 #include "SequentialSolver.h"
 
 
@@ -90,3 +94,7 @@ void SequentialSolver::upperSolve(ISquareMatrix *matrix, IVector *right) {
         right->set(i, (value - sum) / matrix->get(i, i));
     }
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

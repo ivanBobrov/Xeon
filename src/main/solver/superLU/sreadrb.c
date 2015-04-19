@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 /*! @file sreadrb.c
  * \brief Read a matrix stored in Rutherford-Boeing format
@@ -234,3 +238,7 @@ sreadrb(int *nrow, int *ncol, int *nonz,
 
     fclose(fp);
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif

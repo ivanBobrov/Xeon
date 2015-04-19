@@ -1,3 +1,7 @@
+#ifdef MIC_TARGET
+	#pragma offload_attribute(push, target(mic))
+#endif
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -355,3 +359,7 @@ printf("(%d) psgstrf_column_bmod[3] jcol %d, fsupc %d, nsupr %d, nsupc %d, nrow 
 
     return 0;
 }
+
+#ifdef MIC_TARGET
+	#pragma offload_attribute(pop)
+#endif
