@@ -35,8 +35,10 @@
 */
 
     //cant use printf on xeon
-	//printf("** On entry to %6s, parameter number %2d had an illegal value\n",
-	//	srname, *info);
+    #ifndef MIC_TARGET
+	    printf("** On entry to %6s, parameter number %2d had an illegal value\n",
+	           srname, *info);
+	#endif
 
 /*     End of XERBLA */
 
