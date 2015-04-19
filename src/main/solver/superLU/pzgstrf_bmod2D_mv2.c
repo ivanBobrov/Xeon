@@ -9,7 +9,7 @@
 
 void zlsolve(int, int, doublecomplex *, doublecomplex *);
 void zmatvec(int, int, int, doublecomplex *, doublecomplex *, doublecomplex *);
-void zmatvec2(int, int, int, doublecomplex*, doublecomplex*, doublecomplex*, doublecomplex*, doublecomplex*);
+//void zmatvec2(int, int, int, doublecomplex*, doublecomplex*, doublecomplex*, doublecomplex*, doublecomplex*);
 
 
 void
@@ -331,9 +331,9 @@ pzgstrf_bmod2D_mv2(
 		       &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
 		       matvec[0], matvec[1]); */
 #else
-		zmatvec2 (nsupr, block_nrow, segsze, &lusup[luptr],
-			  &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
-			  matvec[0], matvec[1]);
+		//zmatvec2 (nsupr, block_nrow, segsze, &lusup[luptr],
+		//	  &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
+		//	  matvec[0], matvec[1]);
 #endif
 
 #ifdef TIMING

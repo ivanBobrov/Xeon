@@ -196,7 +196,7 @@ pdgstrf(superlumt_options_t *superlumt_options, SuperMatrix *A, int *perm_r,
        On a DEC multiprocessor system, use pthread.
        ------------------------------------------------------------*/
 #elif ( MACH==DEC )	/* Use DECthreads ... */
-    
+#pragma message("Using DECThreads")   
     /* Create nproc threads for concurrent factorization. */
     thread_id = (pthread_t *) SUPERLU_MALLOC(nprocs * sizeof(pthread_t));
     
@@ -265,7 +265,7 @@ pdgstrf(superlumt_options_t *superlumt_options, SuperMatrix *A, int *perm_r,
        Use POSIX threads.
        ------------------------------------------------------------*/
 #elif ( MACH==PTHREAD )	/* Use pthread ... */
-#pragma message("I use pthreads :)")
+#pragma message("Using Pthreads")
 
     /* Create nproc threads for concurrent factorization. */
     thread_id = (pthread_t *) SUPERLU_MALLOC(nprocs * sizeof(pthread_t));
@@ -290,7 +290,7 @@ pdgstrf(superlumt_options_t *superlumt_options, SuperMatrix *A, int *perm_r,
        Use openMP.
        ------------------------------------------------------------*/
 #elif ( MACH==OPENMP ) /* Use openMP ... */
-#pragma message("I use open mp :)")
+#pragma message("Using openMP")
 #pragma omp parallel for shared (pdgstrf_threadarg) private (i)
     /* Stand-alone task loop */
     for (i = 0; i < nprocs; ++i) {

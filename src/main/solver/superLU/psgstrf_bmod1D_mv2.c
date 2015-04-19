@@ -10,7 +10,7 @@
 
 void slsolve(int, int, float *, float *);
 void smatvec(int, int, int, float *, float *, float *);
-void smatvec2(int, int, int, float*, float*, float*, float*, float*);
+//void smatvec2(int, int, int, float*, float*, float*, float*, float*);
 
 void
 psgstrf_bmod1D_mv2(
@@ -298,9 +298,9 @@ if (krep == BADCOL && jj == -1) {
 		       &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
 		       matvec[0], matvec[1]);*/
 #else
-		smatvec2(nsupr, nrow, segsze, &lusup[luptr],
-			 &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
-			 matvec[0], matvec[1]);
+		//smatvec2(nsupr, nrow, segsze, &lusup[luptr],
+		//	 &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
+		//	 matvec[0], matvec[1]);
 #endif
 
 #ifdef TIMING

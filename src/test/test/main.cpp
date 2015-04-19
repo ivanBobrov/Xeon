@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <iomanip>
 
+#pragma offload_attribute(push, target(mic))
 #include <solver.h>
 #include <matrix.h>
+#pragma offload_attribute(pop)
 
 #include "TestRunner.h"
 #include "ArraySquareMatrixTest.h"
@@ -21,6 +23,8 @@
 
 
 bool checkSolver() {
+	#pragma offload target(mic : 0)
+	{
 	ISquareMatrix *initMatrix = new ArraySquareMatrix(MATRIX_SIZE);
 	MatrixUtils::fillRandomMatrix(initMatrix);
 
@@ -34,12 +38,16 @@ bool checkSolver() {
 	//AbstractSolver *solver = new SequentialSolver();
 	solver->setMatrix(hbMatrix);
 
-	std::cout << "Solving" << std::endl;
+	//std::cout << "Solving" << std::endl;
+	printf("Solving\n");
 	long time = clock();
 	solver->prepare();
 	solver->solve(rhs);
 	time = clock() - time;
-	std::cout << "Solve time: " << (float)time / CLOCKS_PER_SEC << std::endl;
+	//std::cout << "Solve time: " << (float)time / CLOCKS_PER_SEC << std::endl;
+	printf("Solve time: %f\n", (float)time / CLOCKS_PER_SEC);
+
+	}
 
 	return true;
 	/*ArrayVector *check = new ArrayVector(MATRIX_SIZE);
@@ -56,23 +64,25 @@ bool checkSolver() {
 }
 
 void run() {
-
+	bool check;
 	//#pragma offload target(mic : 0)
 	{
+		check = checkSolver();
+	}
 
-	#pragma omp parallel for
+	if (check) {
+		std::cout << "Solver test done" << std::endl;
+	} else {
+		std::cout << "Solver test failed" << std::endl;
+	}
+
+	/*#pragma omp parallel for
 		for (int i = 0; i < MATRIX_SIZE; i++) {
 			for (int j = 0; j < MATRIX_SIZE; j++) {
 				for (int k = 0; k < MATRIX_SIZE; k++) {}
 			}
 		}
 
-	}
-
-	/*if (checkSolver()) {
-		std::cout << "Solver test done" << std::endl;
-	} else {
-		std::cout << "Solver test failed" << std::endl;
 	}*/
 
 	//int gb1 = 134217728;
@@ -124,7 +134,7 @@ void run() {
     std::cout << "Time: " << (float) timestamp / CLOCKS_PER_SEC << std::endl;*/
 }
 
-std::vector<TestCase*> getTests() {
+/*std::vector<TestCase*> getTests() {
 	std::vector<TestCase*> tests;
 
 	tests.push_back(new ArraySquareMatrixTest());
@@ -134,7 +144,7 @@ std::vector<TestCase*> getTests() {
 	tests.push_back(new SequentialSolverTest());
 
 	return tests;
-}
+}*/
 
 int main(int argc, const char* argv[]) {
 	run();

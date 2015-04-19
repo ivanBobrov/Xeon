@@ -29,8 +29,20 @@ void SuperLUSolver::prepare() {
 
 
 void SuperLUSolver::solve(IVector *b) {
-    int size = matrix->size();
-    int processesNumber = 4;
+//#pragma offload target(mic : 1)
+	/*{
+		int MATRIX_SIZE = 1000;
+		#pragma omp parallel for
+		for (int i = 0; i < MATRIX_SIZE; i++) {
+			for (int j = 0; j < MATRIX_SIZE; j++) {
+				for (int k = 0; k < MATRIX_SIZE; k++) {}
+			}
+		}
+	}*/
+	
+	
+	int size = matrix->size();
+    int processesNumber = 228;
     int info;
 
     int *perm_c = new int[size];
@@ -48,6 +60,7 @@ void SuperLUSolver::solve(IVector *b) {
     pdgssv(processesNumber, input, perm_c, perm_r, L, U, rightHand, &info);
 
     convertSMToVector(b, rightHand);
+	
 }
 
 void SuperLUSolver::convertToSuperMatrix(SuperMatrix *superMatrix, HarwellBoeingMatrix *ncMatrix) {

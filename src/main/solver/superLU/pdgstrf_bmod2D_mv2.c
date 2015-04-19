@@ -9,7 +9,7 @@
 
 void dlsolve(int, int, double *, double *);
 void dmatvec(int, int, int, double *, double *, double *);
-void dmatvec2(int, int, int, double*, double*, double*, double*, double*);
+//void dmatvec2(int, int, int, double*, double*, double*, double*, double*);
 
 
 void
@@ -317,9 +317,9 @@ pdgstrf_bmod2D_mv2(
 		       &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
 		       matvec[0], matvec[1]); */
 #else
-		dmatvec2 (nsupr, block_nrow, segsze, &lusup[luptr],
-			  &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
-			  matvec[0], matvec[1]);
+		//dmatvec2 (nsupr, block_nrow, segsze, &lusup[luptr],
+		//	  &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
+		//	  matvec[0], matvec[1]);
 #endif
 
 #ifdef TIMING

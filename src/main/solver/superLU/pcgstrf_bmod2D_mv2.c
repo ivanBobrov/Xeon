@@ -9,7 +9,7 @@
 
 void clsolve(int, int, complex *, complex *);
 void cmatvec(int, int, int, complex *, complex *, complex *);
-void cmatvec2(int, int, int, complex*, complex*, complex*, complex*, complex*);
+//void cmatvec2(int, int, int, complex*, complex*, complex*, complex*, complex*);
 
 
 void
@@ -330,9 +330,9 @@ pcgstrf_bmod2D_mv2(
 		       &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
 		       matvec[0], matvec[1]); */
 #else
-		cmatvec2 (nsupr, block_nrow, segsze, &lusup[luptr],
-			  &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
-			  matvec[0], matvec[1]);
+		//cmatvec2 (nsupr, block_nrow, segsze, &lusup[luptr],
+		//	  &tri[0][kfnz-kfnz2[0]], &tri[1][kfnz-kfnz2[1]],
+		//	  matvec[0], matvec[1]);
 #endif
 
 #ifdef TIMING

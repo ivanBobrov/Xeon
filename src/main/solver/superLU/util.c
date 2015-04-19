@@ -255,7 +255,7 @@ int cpp_defs()
     printf("\tPREDICT_OPT\n");
 #endif
 #ifdef USE_VENDOR_BLAS
-    printf("\tUSE_VENDOR_BLAS\n");
+	printf("\tUSE_VENDOR_BLAS\n");
 #endif
 #ifdef GEMV2
     printf("\tGEMV2\n");
