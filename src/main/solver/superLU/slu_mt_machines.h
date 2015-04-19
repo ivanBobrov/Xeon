@@ -26,7 +26,6 @@
 
 #ifdef _OPENMP
 #define MACH OPENMP
-//#pragma message("DONE")
 #endif
 
 #ifdef __SOLARIS

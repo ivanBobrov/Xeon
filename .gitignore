@@ -11,6 +11,7 @@
 *.dir/
 cmake_install.cmake
 *.sdf
+*.opensdf
 *.sln
 *suo
 *.vcxproj*

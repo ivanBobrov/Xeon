@@ -34,8 +34,9 @@
    ===================================================================== 
 */
 
-    printf("** On entry to %6s, parameter number %2d had an illegal value\n",
-		srname, *info);
+    //cant use printf on xeon
+	//printf("** On entry to %6s, parameter number %2d had an illegal value\n",
+	//	srname, *info);
 
 /*     End of XERBLA */
 
