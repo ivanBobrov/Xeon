@@ -42,7 +42,7 @@ void SuperLUSolver::solve(IVector *b) {
 	
 	
 	int size = matrix->size();
-    int processesNumber = 228;
+    int processesNumber = 228;//228;
     int info;
 
     int *perm_c = new int[size];

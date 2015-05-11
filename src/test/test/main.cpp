@@ -28,7 +28,7 @@ bool checkSolver() {
 	ISquareMatrix *initMatrix = new ArraySquareMatrix(MATRIX_SIZE);
 	MatrixUtils::fillRandomMatrix(initMatrix);
 
-	HarwellBoeingMatrix *hbMatrix = new HarwellBoeingMatrix(initMatrix, 99);
+	HarwellBoeingMatrix *hbMatrix = new HarwellBoeingMatrix(initMatrix, 0);
 	ArrayVector *rhs = new ArrayVector(MATRIX_SIZE);
 	MatrixUtils::fillRandomVector(rhs);
 
@@ -37,7 +37,7 @@ bool checkSolver() {
 	SuperLUSolver *solver = new SuperLUSolver();
 	//AbstractSolver *solver = new SequentialSolver();
 	solver->setMatrix(hbMatrix);
-
+	
 	//std::cout << "Solving" << std::endl;
 	printf("Solving\n");
 	long time = clock();
@@ -64,6 +64,26 @@ bool checkSolver() {
 }
 
 void run() {
+	
+	/*int size = 134217728 * 3;
+	double *a = (double*)malloc(size * sizeof(double));
+	//in(a:length(size)) in(size)	
+	double as;
+	#pragma offload target(mic : 0) out(as) in(a)
+	{
+		//double *a = new double[size];
+		//double *a = (double*)malloc(size * sizeof(double));
+		for (int i = 0; i < size; i++) {
+			a[i] = i + i;
+		}
+
+		as = a[10000];
+	}
+
+	int stop;
+	std::cout << "DONE " << as << std::endl;
+	std::cin >> stop;*/
+	
 	bool check;
 	//#pragma offload target(mic : 0)
 	{
@@ -75,6 +95,10 @@ void run() {
 	} else {
 		std::cout << "Solver test failed" << std::endl;
 	}
+
+	int stop;
+	std::cout << "DONE" << std::endl;
+	std::cin >> stop;
 
 	/*#pragma omp parallel for
 		for (int i = 0; i < MATRIX_SIZE; i++) {
