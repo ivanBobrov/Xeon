@@ -953,7 +953,7 @@ sPresetMap(
     printf("** PresetMap() allocates %d reals to lusup[*]....\n", nextpos);
 #endif
 
-    free (marker);
+    SUPERLU_FREE (marker);
     return nextpos;
 }
 

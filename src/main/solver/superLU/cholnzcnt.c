@@ -239,14 +239,14 @@ int cholnzcnt(int neqns, int *xadj, int *adjncy,
 	}
     }
 
-    free (rowcnt);
-    free (set);
-    free (prvlf);
-    free (level);
-    free (weight);
-    free (fdesc);
-    free (nchild);
-    free (prvnbr);
+    SUPERLU_FREE (rowcnt);
+    SUPERLU_FREE (set);
+    SUPERLU_FREE (prvlf);
+    SUPERLU_FREE (level);
+    SUPERLU_FREE (weight);
+    SUPERLU_FREE (fdesc);
+    SUPERLU_FREE (nchild);
+    SUPERLU_FREE (prvnbr);
 
 #if ( PRNTlevel>=1 )
     printf(".. cholnzcnt() nlnz %d\n", *nlnz);

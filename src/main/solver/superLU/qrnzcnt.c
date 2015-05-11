@@ -403,22 +403,22 @@ qrnzcnt(int neqns, int adjlen, int *xadj, int *adjncy, int *zfdperm,
     part_super_ata[xsup] = neqns - xsup;
 
     /* Fix the supernode partition in H. */
-    
-    free (set);
-    free (prvlf);
-    free (level);
-    free (weight);
-    free (fdesc);
-    free (nchild);
-    free (prvnbr);
-    free (fnz_hadj);
 
-    free (first);
-    free (firstset);
-    free (weight_h);
-    free (rowcnt_h);
-    free (rowcnt);
-    free (colcnt);
+	SUPERLU_FREE (set);
+	SUPERLU_FREE (prvlf);
+	SUPERLU_FREE (level);
+	SUPERLU_FREE (weight);
+	SUPERLU_FREE (fdesc);
+	SUPERLU_FREE (nchild);
+	SUPERLU_FREE (prvnbr);
+	SUPERLU_FREE (fnz_hadj);
+
+	SUPERLU_FREE (first);
+	SUPERLU_FREE (firstset);
+	SUPERLU_FREE (weight_h);
+	SUPERLU_FREE (rowcnt_h);
+	SUPERLU_FREE (rowcnt);
+	SUPERLU_FREE (colcnt);
     
 #if ( PRNTlevel==1 )
     printf(".. qrnzcnt() nlnz %d, nhnz %d, nlnz/nhnz %.2f\n", 

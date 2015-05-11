@@ -26,16 +26,32 @@ void superlu_abort_and_exit(char* msg)
     exit (-1);
 }
 
+int gbCountToUse = 5;
+size_t gbSize = 1073741824;
+void * memPtr = 0;
+void * currPtr = 0;
+unsigned long totalBytes = 0;
+
 void *superlu_malloc(size_t size)
 {
+    if (memPtr == 0) {
+        memPtr = malloc(gbSize * gbCountToUse);
+        currPtr = memPtr;
+    }
+
     void *buf;
-    buf = (void *) malloc(size);
+    //buf = (void *) malloc(size);
+    buf = currPtr;
+    currPtr += size;
+
+    totalBytes += size;
+    printf("totalBytes: %lu\n", totalBytes);
     return (buf);
 }
 
 void superlu_free(void *addr)
 {
-    free (addr);
+    //free (addr);
 }
 
 /* Deallocate the structure pointing to the actual storage of the matrix. */
