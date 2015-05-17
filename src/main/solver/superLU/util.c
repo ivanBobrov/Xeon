@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "pdsp_defs.h"
+#include <offload.h>
 
 
 void superlu_abort_and_exit(char* msg)
@@ -26,23 +27,26 @@ void superlu_abort_and_exit(char* msg)
     exit (-1);
 }
 
-int gbCountToUse = 5;
+int gbCountToUse = 3;
 size_t gbSize = 1073741824;
-void * memPtr = 0;
-void * currPtr = 0;
+unsigned long * memPtrXeon = 0;
+unsigned long * memPtrCPU = 0;
+unsigned long * currPtrXeon = 0;
+unsigned long * currPtrCPU = 0;
 unsigned long totalBytes = 0;
 
 void *superlu_malloc(size_t size)
 {
-    if (memPtr == 0) {
-        memPtr = malloc(gbSize * gbCountToUse);
-        currPtr = memPtr;
+    unsigned long *buf;
+	if (memPtrXeon == 0) {
+        memPtrXeon = (unsigned long*)malloc(gbSize * gbCountToUse);
+        currPtrXeon = memPtrXeon;
+		memset(memPtrXeon, 0, gbSize * gbCountToUse);
     }
 
-    void *buf;
     //buf = (void *) malloc(size);
-    buf = currPtr;
-    currPtr += size;
+    buf = currPtrXeon;
+    currPtrXeon += size;
 
     totalBytes += size;
     printf("totalBytes: %lu\n", totalBytes);

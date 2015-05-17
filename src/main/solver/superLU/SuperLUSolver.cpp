@@ -43,11 +43,30 @@ void SuperLUSolver::solve(IVector *b) {
 	
 	int size = matrix->size();
     int processesNumber = 228;//228;
-    int info;
+    //int info;
 
-    int *perm_c = new int[size];
-    int *perm_r = new int[size];
+    //int *perm_c = new int[size];
+    //int *perm_r = new int[size];
+	double* matr = new double[size * size];
+	double* vect = new double[size];
+	int* ipiv = new int[size];
+	for (int i = 0; i < size; i++) {
+		ipiv[i] = i;
+		vect[i] = b->get(i);
+		for (int j = 0; j < size; j++) {
+			matr[i] = this->matrix->get(i, j);
+		}
+	}
+	
+	clock_t start, stop;
+	int lda = size, ldb = size, nrhs = 1, info;
+	mkl_mic_enable();
+	start = clock();
+	dgetrs("N", &size, &nrhs, matr, &lda, ipiv, vect, &ldb, &info);
+	stop = clock();
 
+	printf("time mkl: %f", ((float)stop - (float)start) / CLOCKS_PER_SEC);
+	/*
     SuperMatrix *input      = new SuperMatrix();
     SuperMatrix *L          = new SuperMatrix();
     SuperMatrix *U          = new SuperMatrix();
@@ -59,11 +78,11 @@ void SuperLUSolver::solve(IVector *b) {
 
     pdgssv(processesNumber, input, perm_c, perm_r, L, U, rightHand, &info);
 
-    convertSMToVector(b, rightHand);
+    convertSMToVector(b, rightHand);*/
 	
 }
 
-void SuperLUSolver::convertToSuperMatrix(SuperMatrix *superMatrix, HarwellBoeingMatrix *ncMatrix) {
+/*void SuperLUSolver::convertToSuperMatrix(SuperMatrix *superMatrix, HarwellBoeingMatrix *ncMatrix) {
     int size = ncMatrix->size();
     int nnz = matrix->getNonZeroNumber();
     
@@ -105,7 +124,7 @@ void SuperLUSolver::convertSMToVector(IVector *out, SuperMatrix *matrix) {
     for (int i = 0; i < size; i++) {
         out->set(i, nzval[i]);
     }
-}
+}*/
 
 #ifdef MIC_TARGET
 	#pragma offload_attribute(pop)
