@@ -193,7 +193,7 @@ int main(int argc, const char* argv[]) {
 }
 
 void PCRTest() {
-	int size = 987;
+	int size = 25;
 	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
 	MatrixUtils::fillRandomMatrix(matrix);
@@ -217,6 +217,9 @@ void PCRTest() {
 	} else {
 		printf("Something went wrong\n");
 	}
+
+	int ccc;
+	std::cin >> ccc;
 
 }
 

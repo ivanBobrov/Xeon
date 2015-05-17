@@ -3,7 +3,6 @@
 #endif
 
 #include "PCRSolver.h"
-#include <stdio.h> //TOOD: remove it now
 
 PCRSolver::PCRSolver() {
     //Nothing to do
@@ -38,7 +37,7 @@ void PCRSolver::PCRKernel(TridiagonalMatrix *triDiagMatrix, IVector *bv, IVector
     {
         int delta = 1;
         const unsigned int systemSize = (unsigned int) actSize;
-        int iteration = (int) log2(systemSize/2);
+        int iteration = (int) (log(systemSize/2) / M_LOG2);
 
         #pragma omp for
         for (int i = 0; i < size; i++) {

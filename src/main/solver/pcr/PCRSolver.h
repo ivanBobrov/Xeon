@@ -6,6 +6,8 @@
 #include <AbstractSolver.h>
 #include <TridiagonalMatrix.h>
 
+#define M_LOG2 0.69314718055994530943
+
 class PCRSolver : public AbstractSolver {
 private:
     TridiagonalMatrix* matrix;
