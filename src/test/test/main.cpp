@@ -4,6 +4,7 @@
 #pragma offload_attribute(push, target(mic))
 #include <solver.h>
 #include <matrix.h>
+
 #pragma offload_attribute(pop)
 
 #include "TestRunner.h"
@@ -20,7 +21,7 @@
 * 2. Common include file for libraries (?)
 * 3. Exceptions
 */
-
+void PCRTest();
 
 bool checkSolver() {
 	#pragma offload target(mic : 0)
@@ -171,7 +172,8 @@ void run() {
 }*/
 
 int main(int argc, const char* argv[]) {
-	run();
+	//run();
+	PCRTest();
 	return 0;
 
 	/*std::cout << "Running tests..." << std::endl << std::endl;
@@ -189,3 +191,33 @@ int main(int argc, const char* argv[]) {
 
 	return 0;*/
 }
+
+void PCRTest() {
+	int size = 987;
+	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
+	IVector* rh = new ArrayVector(size);
+	MatrixUtils::fillRandomMatrix(matrix);
+	MatrixUtils::fillRandomVector(rh);
+
+	IVector* check = new ArrayVector(rh);
+
+	AbstractSolver* solver = new PCRSolver();
+	solver->setMatrix(matrix);
+	solver->prepare();
+	solver->solve(rh);
+
+	IVector* probe = new ArrayVector(size);
+	MatrixUtils::product(matrix, rh, probe);
+
+	MatrixUtils::print(check, std::cout);
+	MatrixUtils::print(probe, std::cout);
+
+	if (MatrixUtils::compare(probe, check, 0.0001)) {
+		printf("Success\n");
+	} else {
+		printf("Something went wrong\n");
+	}
+
+}
+
+

@@ -130,6 +130,23 @@ void MatrixUtils::fillRandomMatrix(IMatrix *matrix) {
     }
 }
 
+void MatrixUtils::fillRandomMatrix(TridiagonalMatrix *matrix) {
+    srand((unsigned int) time(NULL));
+    int size = matrix->size();
+
+    matrix->set(0, 0, 2 * getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+    matrix->set(0, 1, getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+
+    for (int i = 1; i < size - 1; i++) {
+        matrix->set(i, i-1, getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+        matrix->set(i, i, 2 * getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+        matrix->set(i, i+1, getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+    }
+
+    matrix->set(size-1, size-2, getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+    matrix->set(size-1, size-1, 2 * getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+}
+
 void MatrixUtils::fillRandomVector(IVector *vector) {
     srand((unsigned int)time(NULL));
 

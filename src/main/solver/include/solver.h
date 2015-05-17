@@ -4,5 +4,6 @@
 #include "AbstractSolver.h"
 #include "SequentialSolver.h"
 #include "SuperLUSolver.h"
+#include "PCRSolver.h"
 
 #endif

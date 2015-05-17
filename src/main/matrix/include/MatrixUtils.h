@@ -8,6 +8,7 @@
 #include <time.h>
 #include "IMatrix.h"
 #include "IVector.h"
+#include "TridiagonalMatrix.h"
 
 class MatrixUtils {
 private:
@@ -28,6 +29,7 @@ public:
     static void print(IMatrix const *matrix, std::ostream &out, int symbols, int precision);
     static void print(IVector const *vector, std::ostream &out, int symbols, int precision);
     static void fillRandomMatrix(IMatrix *matrix);
+    static void fillRandomMatrix(TridiagonalMatrix *matrix);
     static void fillRandomVector(IVector *vector);
 
 };
