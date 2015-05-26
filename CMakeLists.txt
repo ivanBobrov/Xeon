@@ -8,11 +8,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 if ( WIN32 )
 	set(CMAKE_GENERATOR_TOOLSET "Intel C++ Compiler XE 14.0" CACHE STRING "Platform Toolset" FORCE)
+	add_definitions(-DMIC_TARGET)
+	add_definitions(-DMKL)
 	set(CMAKE_CXX_FLAGS "/Qopenmp /GR-")
 else()
 	set(CMAKE_CXX_FLAGS "-fopenmp")
 endif()
-
-add_definitions(-DMIC_TARGET)
 
 subdirs(src)

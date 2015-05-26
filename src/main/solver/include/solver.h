@@ -5,5 +5,6 @@
 #include "SequentialSolver.h"
 #include "SuperLUSolver.h"
 #include "PCRSolver.h"
+#include "MKLTDSolver.h"
 
 #endif

@@ -18,7 +18,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "pdsp_defs.h"
-#include <offload.h>
+
+#ifdef MIC_TARGET
+    #include <offload.h>
+#endif
 
 
 void superlu_abort_and_exit(char* msg)

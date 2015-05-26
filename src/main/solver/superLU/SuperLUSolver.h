@@ -7,10 +7,12 @@
 #include "AbstractSolver.h"
 
 #define EXIT return
-//#include "pdsp_defs.h"
-#include "mkl.h"
 #include "time.h"
 #include <stdio.h>
+
+#ifdef MKL
+    #include "mkl.h"
+#endif
 
 class SuperLUSolver : public AbstractSolver {
 private:

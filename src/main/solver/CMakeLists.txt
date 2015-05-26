@@ -6,6 +6,7 @@ set(SOLVER_INCLUDE_DIRS "" PARENT_SCOPE)
 add_subdirectory(sequential)
 add_subdirectory(superLU)
 add_subdirectory(pcr)
+add_subdirectory(mkl)
 
 set(MAIN_INCLUDE_DIRS
     ${MAIN_INCLUDE_DIRS}

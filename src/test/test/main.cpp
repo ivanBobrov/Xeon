@@ -22,6 +22,7 @@
 * 3. Exceptions
 */
 void PCRTest();
+void MKLTDTest();
 
 bool checkSolver() {
 	#pragma offload target(mic : 0)
@@ -173,7 +174,8 @@ void run() {
 
 int main(int argc, const char* argv[]) {
 	//run();
-	PCRTest();
+	//PCRTest();
+	MKLTDTest();
 	return 0;
 
 	/*std::cout << "Running tests..." << std::endl << std::endl;
@@ -190,6 +192,38 @@ int main(int argc, const char* argv[]) {
 	}
 
 	return 0;*/
+}
+
+void MKLTDTest() {
+	int size = 20;
+	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
+	IVector* rh = new ArrayVector(size);
+	MatrixUtils::fillRandomMatrix(matrix);
+	MatrixUtils::fillRandomVector(rh);
+
+	IVector* check = new ArrayVector(rh);
+
+	AbstractSolver* solver = new MKLTDSolver();
+	solver->setMatrix(matrix);
+	solver->prepare();
+	solver->solve(rh);
+
+
+	IVector* probe = new ArrayVector(size);
+	MatrixUtils::product(matrix, rh, probe);
+
+	MatrixUtils::print(check, std::cout);
+	MatrixUtils::print(probe, std::cout);
+
+	if (MatrixUtils::compare(probe, check, 0.0001)) {
+		printf("Success\n");
+	} else {
+		printf("Something went wrong\n");
+	}
+
+	printf("Done");
+	//int ccc;
+	//std::cin >> ccc;
 }
 
 void PCRTest() {
