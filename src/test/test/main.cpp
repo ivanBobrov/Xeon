@@ -193,7 +193,7 @@ int main(int argc, const char* argv[]) {
 }
 
 void PCRTest() {
-	int size = 25;
+	int size = 1024 * 1024 * 32;
 	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
 	MatrixUtils::fillRandomMatrix(matrix);
@@ -205,7 +205,8 @@ void PCRTest() {
 	solver->setMatrix(matrix);
 	solver->prepare();
 	solver->solve(rh);
-
+	
+	/*
 	IVector* probe = new ArrayVector(size);
 	MatrixUtils::product(matrix, rh, probe);
 
@@ -217,9 +218,10 @@ void PCRTest() {
 	} else {
 		printf("Something went wrong\n");
 	}
-
-	int ccc;
-	std::cin >> ccc;
+	*/
+	printf("Done");
+	//int ccc;
+	//std::cin >> ccc;
 
 }
 

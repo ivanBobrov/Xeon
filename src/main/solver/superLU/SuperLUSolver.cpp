@@ -60,9 +60,9 @@ void SuperLUSolver::solve(IVector *b) {
 	
 	clock_t start, stop;
 	int lda = size, ldb = size, nrhs = 1, info;
-	mkl_mic_enable();
+	//mkl_mic_enable();
 	start = clock();
-	dgetrs("N", &size, &nrhs, matr, &lda, ipiv, vect, &ldb, &info);
+	//dgetrs("N", &size, &nrhs, matr, &lda, ipiv, vect, &ldb, &info);
 	stop = clock();
 
 	printf("time mkl: %f", ((float)stop - (float)start) / CLOCKS_PER_SEC);

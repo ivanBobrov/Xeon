@@ -5,13 +5,15 @@
 #include "XeonAllocatable.h"
 #include <algorithm>
 
-class TridiagonalMatrix : public ISquareMatrix, public XeonAllocatable {
+class TridiagonalMatrix : public ISquareMatrix/*, public XeonAllocatable*/ {
 private:
     double* lowerDiagonal;
     double* mainDiagonal;
     double* upperDiagonal;
 
     int mSize;
+
+	TridiagonalMatrix();
 
 public:
     TridiagonalMatrix(int size);
@@ -21,12 +23,12 @@ public:
     virtual void set(const int i, const int j, const double value);
     virtual double get(const int i, const int j) const;
 
-    virtual void allocateOnXeonPhi();
+    virtual void allocateOnXeonPhi(TridiagonalMatrix* matrix);
     virtual void freeOnXeonPhi();
 
-    double getLowerDiagonal(const int i) const;
-    double getMainDiagonal(const int i) const;
-    double getUpperDiagonal(const int i) const;
+    double* getLowerDiagonal() const;
+    double* getMainDiagonal() const;
+    double* getUpperDiagonal() const;
 };
 
 #endif //TRIDIAGONALMATRIX_H

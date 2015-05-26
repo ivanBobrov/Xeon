@@ -16,6 +16,10 @@ TridiagonalMatrix::TridiagonalMatrix(int size) {
     std::fill(this->upperDiagonal, this->upperDiagonal + size, 0);
 }
 
+TridiagonalMatrix::TridiagonalMatrix() {
+	//Empty private constructor for filling in Xeon
+}
+
 TridiagonalMatrix::~TridiagonalMatrix() {
     delete[] this->lowerDiagonal;
     delete[] this->mainDiagonal;
@@ -66,33 +70,45 @@ int TridiagonalMatrix::size() const {
 }
 
 
-double TridiagonalMatrix::getLowerDiagonal(const int i) const {
-    if (i >= 0 && i < this->mSize) {
-        return this->lowerDiagonal[i];
-    }
+double* TridiagonalMatrix::getLowerDiagonal() const {
+	return this->lowerDiagonal;
 
-    return 0;
 }
 
-double TridiagonalMatrix::getMainDiagonal(const int i) const {
-    if (i >= 0 && i < this->mSize) {
-        return this->mainDiagonal[i];
-    }
-
-    return 0;
+double* TridiagonalMatrix::getMainDiagonal() const {
+	return this->mainDiagonal;
 }
 
-double TridiagonalMatrix::getUpperDiagonal(const int i) const {
-    if (i >= 0 && i < this->mSize) {
-        return this->upperDiagonal[i];
-    }
-
-    return 0;
+double* TridiagonalMatrix::getUpperDiagonal() const {
+	return this->upperDiagonal;
 }
 
 
-void TridiagonalMatrix::allocateOnXeonPhi() {
-    //#pragma offload_transfer target(mic : 0)
+void TridiagonalMatrix::allocateOnXeonPhi(TridiagonalMatrix* matrix) {
+	/*TridiagonalMatrix *xeonCopy = this;
+	int xeonMSize = this->mSize;
+	double* xeonLower = this->lowerDiagonal;
+	double* xeonMain = this->mainDiagonal;
+	double* xeonUpper = this->upperDiagonal;
+
+	#pragma offload target(mic : 0) in(xeonMSize) in(xeonLower, xeonMain, xeonUpper : length(xeonMSize) ALLOC) nocopy(xeonCopy : ALLOC)
+	{
+		xeonCopy = new TridiagonalMatrix();
+		xeonCopy->mSize = xeonMSize;
+		xeonCopy->lowerDiagonal = xeonLower;
+		xeonCopy->mainDiagonal = xeonMain;
+		xeonCopy->upperDiagonal = xeonUpper;
+	}
+
+	#pragma offload target(mic : 0) nocopy(xeonCopy : REUSE)
+	{
+		int size = xeonCopy->size();
+	}*/
+	
+	#pragma offload target(mic : 0) nocopy(matrix)
+	{
+		matrix = new TridiagonalMatrix(100);
+	}
 }
 
 void TridiagonalMatrix::freeOnXeonPhi() {

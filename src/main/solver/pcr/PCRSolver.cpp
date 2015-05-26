@@ -14,14 +14,40 @@ void PCRSolver::setMatrix(ISquareMatrix *matrix) {
 
 void PCRSolver::prepare() {
     //send arrays to Xeon
-    matrix->allocateOnXeonPhi();
+    //matrix->allocateOnXeonPhi();
 }
+
+void alloc(TridiagonalMatrix**);
 
 void PCRSolver::solve(IVector *b) {
-    PCRKernel(matrix, b, b, b->size(), 10);
+	int size = b->size();
+
+	double* lower = matrix->getLowerDiagonal();
+	double* main = matrix->getMainDiagonal();
+	double* upper = matrix->getUpperDiagonal();
+	double* rh = new double[size];
+
+	#pragma omp for
+	for (int i = 0; i < size; i++) {
+		rh[i] = b->get(i);
+	}
+
+	printf("start offload\n");
+	//#pragma offload target(mic : 0) in(lower, main, upper : length(size)) inout(rh : length(size))
+	{
+		PCRKernel(lower, main, upper, rh, rh, size, 32);
+	}
+
+	printf("offloading procedure\n");
+	#pragma omp for
+	for (int i = 0; i < size; i++) {
+		b->set(i, rh[i]);
+	}
+
+	delete[] rh;
 }
 
-void PCRSolver::PCRKernel(TridiagonalMatrix *triDiagMatrix, IVector *bv, IVector *xi, int size, int numThreads) {
+void PCRSolver::PCRKernel(double* oa, double* ob, double* oc, double *bv, double *xi, int size, int numThreads) {
     int actSize = 1;
     while (actSize < size) {
         actSize *= 2;
@@ -33,6 +59,11 @@ void PCRSolver::PCRKernel(TridiagonalMatrix *triDiagMatrix, IVector *bv, IVector
     double* d = new double[actSize];
     double* x = new double[actSize];
 
+	double* aNew = new double[actSize];
+    double* bNew = new double[actSize];
+	double*	cNew = new double[actSize];
+    double* dNew = new double[actSize];
+
     #pragma omp parallel num_threads(numThreads)
     {
         int delta = 1;
@@ -41,23 +72,21 @@ void PCRSolver::PCRKernel(TridiagonalMatrix *triDiagMatrix, IVector *bv, IVector
 
         #pragma omp for
         for (int i = 0; i < size; i++) {
-            a[i] = triDiagMatrix->getLowerDiagonal(i);
-            b[i] = triDiagMatrix->getMainDiagonal(i);
-            c[i] = triDiagMatrix->getUpperDiagonal(i);
-            d[i] = bv->get(i);
+            a[i] = oa[i];
+            b[i] = ob[i];
+            c[i] = oc[i];
+            d[i] = bv[i];
         }
 
-        for (int i = size; i < systemSize; i++) {
+		#pragma omp for
+		for (int i = size; i < systemSize; i++) {
             a[i] = 0;
             b[i] = 1;
             c[i] = 0;
             d[i] = 1;
         }
 
-        double* aNew = new double[systemSize];
-        double* bNew = new double[systemSize];
-        double*	cNew = new double[systemSize];
-        double* dNew = new double[systemSize];
+        
 
         for (int j = 0; j < iteration; j++) {
             #pragma omp for
@@ -110,9 +139,16 @@ void PCRSolver::PCRKernel(TridiagonalMatrix *triDiagMatrix, IVector *bv, IVector
 
         #pragma omp for
         for (int i = 0; i < size; i++) {
-            xi->set(i, x[i]);
+            xi[i] = x[i];
         }
     }
+}
+
+void alloc(TridiagonalMatrix** mm) {
+	#pragma offload target(mic : 0) nocopy(mm)
+	{
+		*mm = new TridiagonalMatrix(100);
+	}
 }
 
 #ifdef MIC_TARGET
