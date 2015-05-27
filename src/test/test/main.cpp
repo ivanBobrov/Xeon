@@ -174,8 +174,8 @@ void run() {
 
 int main(int argc, const char* argv[]) {
 	//run();
-	//PCRTest();
-	MKLTDTest();
+	PCRTest();
+	//MKLTDTest();
 	return 0;
 
 	/*std::cout << "Running tests..." << std::endl << std::endl;
@@ -195,7 +195,7 @@ int main(int argc, const char* argv[]) {
 }
 
 void MKLTDTest() {
-	int size = 20;
+	int size = 1024 * 1024 * 32;
 	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
 	MatrixUtils::fillRandomMatrix(matrix);
@@ -209,9 +209,10 @@ void MKLTDTest() {
 	solver->solve(rh);
 
 
-	IVector* probe = new ArrayVector(size);
+	/*IVector* probe = new ArrayVector(size);
 	MatrixUtils::product(matrix, rh, probe);
 
+	MatrixUtils::print(rh,    std::cout);
 	MatrixUtils::print(check, std::cout);
 	MatrixUtils::print(probe, std::cout);
 
@@ -219,11 +220,11 @@ void MKLTDTest() {
 		printf("Success\n");
 	} else {
 		printf("Something went wrong\n");
-	}
+	}*/
 
 	printf("Done");
-	//int ccc;
-	//std::cin >> ccc;
+	int ccc;
+	std::cin >> ccc;
 }
 
 void PCRTest() {
@@ -254,8 +255,8 @@ void PCRTest() {
 	}
 	*/
 	printf("Done");
-	//int ccc;
-	//std::cin >> ccc;
+	int ccc;
+	std::cin >> ccc;
 
 }
 

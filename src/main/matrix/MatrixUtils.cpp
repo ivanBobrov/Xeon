@@ -56,7 +56,7 @@ bool MatrixUtils::compare(IMatrix const *A, IMatrix const *B, const double epsil
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            if (A->get(i, j) - B->get(i, j) > epsilon) {
+            if (abs(A->get(i, j) - B->get(i, j)) > epsilon) {
                 return false;
             }
         }
@@ -74,7 +74,7 @@ bool MatrixUtils::compare(IVector const *A, IVector const *B, const double epsil
     int size = A->size();
 
     for (int i = 0; i < size; i++) {
-        if (A->get(i) - B->get(i) > epsilon) {
+        if (abs(A->get(i) - B->get(i)) > epsilon) {
             return false;
         }
     }

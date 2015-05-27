@@ -5,10 +5,13 @@
 
 #ifdef MKL
 
+#include "matrix.h"
 #include "AbstractSolver.h"
+#include <mkl.h>
 
 class MKLTDSolver : public AbstractSolver {
 private:
+	TridiagonalMatrix* matrix;
 
 public:
     MKLTDSolver();
