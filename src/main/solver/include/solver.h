@@ -6,5 +6,6 @@
 #include "SuperLUSolver.h"
 #include "PCRSolver.h"
 #include "MKLTDSolver.h"
+#include "MKLLUSolver.h"
 
 #endif

@@ -21,8 +21,10 @@
 * 2. Common include file for libraries (?)
 * 3. Exceptions
 */
+
 void PCRTest();
 void MKLTDTest();
+void MKLLUTest();
 
 bool checkSolver() {
 	#pragma offload target(mic : 0)
@@ -221,6 +223,39 @@ void MKLTDTest() {
 	} else {
 		printf("Something went wrong\n");
 	}*/
+
+	printf("Done");
+	int ccc;
+	std::cin >> ccc;
+}
+
+void MKLLUTest() {
+	int size = 1024 * 1024 * 32;
+	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
+	IVector* rh = new ArrayVector(size);
+	MatrixUtils::fillRandomMatrix(matrix);
+	MatrixUtils::fillRandomVector(rh);
+
+	IVector* check = new ArrayVector(rh);
+
+	AbstractSolver* solver = new MKLLUSolver();
+	solver->setMatrix(matrix);
+	solver->prepare();
+	solver->solve(rh);
+
+
+	IVector* probe = new ArrayVector(size);
+	MatrixUtils::product(matrix, rh, probe);
+
+	MatrixUtils::print(rh,    std::cout);
+	MatrixUtils::print(check, std::cout);
+	MatrixUtils::print(probe, std::cout);
+
+	if (MatrixUtils::compare(probe, check, 0.0001)) {
+		printf("Success\n");
+	} else {
+		printf("Something went wrong\n");
+	}
 
 	printf("Done");
 	int ccc;
