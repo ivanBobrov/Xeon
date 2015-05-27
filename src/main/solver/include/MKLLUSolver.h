@@ -1,15 +1,21 @@
 #ifndef MKLLUSOLVER_H
 #define MKLLUSOLVER_H
 
-#include "AbstractSolver.h"
-
 #ifdef MKL
+
+#include "AbstractSolver.h"
+#include <mkl.h>
+#include <stdio.h>
 
 class MKLLUSolver : public AbstractSolver {
 private:
-
+	ISquareMatrix* matrix;
 public:
+	MKLLUSolver();
 
+	virtual void setMatrix(ISquareMatrix *matrix);
+	virtual void prepare();
+	virtual void solve(IVector *b);
 };
 
 #else //MKL

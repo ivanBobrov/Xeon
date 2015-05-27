@@ -25,6 +25,7 @@
 void PCRTest();
 void MKLTDTest();
 void MKLLUTest();
+void SuperLUTest();
 
 bool checkSolver() {
 	#pragma offload target(mic : 0)
@@ -176,8 +177,10 @@ void run() {
 
 int main(int argc, const char* argv[]) {
 	//run();
-	PCRTest();
+	//PCRTest();
 	//MKLTDTest();
+	//MKLLUTest();
+	SuperLUTest();
 	return 0;
 
 	/*std::cout << "Running tests..." << std::endl << std::endl;
@@ -230,7 +233,7 @@ void MKLTDTest() {
 }
 
 void MKLLUTest() {
-	int size = 1024 * 1024 * 32;
+	int size = 1024 * 5;
 	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
 	MatrixUtils::fillRandomMatrix(matrix);
@@ -244,10 +247,41 @@ void MKLLUTest() {
 	solver->solve(rh);
 
 
+	/*IVector* probe = new ArrayVector(size);
+	MatrixUtils::product(matrix, rh, probe);
+
+	MatrixUtils::print(check, std::cout);
+	MatrixUtils::print(probe, std::cout);
+
+	if (MatrixUtils::compare(probe, check, 0.0001)) {
+		printf("Success\n");
+	} else {
+		printf("Something went wrong\n");
+	}*/
+
+	printf("Done");
+	int ccc;
+	std::cin >> ccc;
+}
+
+void SuperLUTest() {
+	int size = 3;
+	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
+	IVector* rh = new ArrayVector(size);
+	MatrixUtils::fillRandomMatrix(matrix);
+	MatrixUtils::fillRandomVector(rh);
+
+	IVector* check = new ArrayVector(rh);
+
+	AbstractSolver* solver = new SuperLUSolver();
+	solver->setMatrix(matrix);
+	solver->prepare();
+	solver->solve(rh);
+
+
 	IVector* probe = new ArrayVector(size);
 	MatrixUtils::product(matrix, rh, probe);
 
-	MatrixUtils::print(rh,    std::cout);
 	MatrixUtils::print(check, std::cout);
 	MatrixUtils::print(probe, std::cout);
 
