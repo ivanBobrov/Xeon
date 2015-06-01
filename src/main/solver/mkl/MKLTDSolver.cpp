@@ -31,8 +31,14 @@ void MKLTDSolver::solve(IVector *b) {
 
 	printf("solving\n");
 	//mkl_mic_enable();
+	mkl_set_num_threads(1);
+	//mkl_mic_set_workdivision(MKL_TARGET_HOST, 0, 0.0);
+	//mkl_mic_set_workdivision(MKL_TARGET_MIC, 0, 1.0);
+	double start = omp_get_wtime();
 	dgtsv(&size, &nrhs, lower+1, main, upper, rh, &size, &info);
-	printf("done\n");
+	double stop =  omp_get_wtime();
+	
+	printf("done : %f\n", stop - start);
 
 	#pragma omp for
 	for (int i = 0; i < size; i++) {

@@ -6,6 +6,7 @@
 #include "AbstractSolver.h"
 #include <mkl.h>
 #include <stdio.h>
+#include <omp.h>
 
 class MKLLUSolver : public AbstractSolver {
 private:

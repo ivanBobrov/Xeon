@@ -8,6 +8,8 @@
 #include "matrix.h"
 #include "AbstractSolver.h"
 #include <mkl.h>
+#include <omp.h>
+#include <stdio.h>
 
 class MKLTDSolver : public AbstractSolver {
 private:

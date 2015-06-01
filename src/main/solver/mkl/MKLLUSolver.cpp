@@ -32,7 +32,11 @@ void MKLLUSolver::solve(IVector *b) {
 			matr[size*j + i] = matrix->get(i, j);
 		}
 	}
-
+	//omp_set_num_threads(240);
+	int rc = mkl_mic_enable();
+	//mkl_mic_set_workdivision(MKL_TARGET_HOST, 0, 0.0);
+	//mkl_set_num_threads(32);
+	//mkl_mic_set_offload_report(1);
 	printf("Start solving\n");
 	dgesv(&size, &nrhs, matr, &lda, ipiv, vect, &ldb, &info);
 	printf("done\n");

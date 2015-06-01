@@ -33,12 +33,15 @@ void PCRSolver::solve(IVector *b) {
 	}
 
 	printf("start offload\n");
-	//#pragma offload target(mic : 0) in(lower, main, upper : length(size)) inout(rh : length(size))
+	double start = omp_get_wtime();
+	
+	#pragma offload target(mic : 0) in(lower, main, upper : length(size)) inout(rh : length(size))
 	{
-		PCRKernel(lower, main, upper, rh, rh, size, 32);
+		PCRKernel(lower, main, upper, rh, rh, size, 240);
 	}
-
-	printf("offloading procedure\n");
+	
+	double stop =  omp_get_wtime();
+	printf("offloading procedure done : %f\n", stop - start);
 	#pragma omp for
 	for (int i = 0; i < size; i++) {
 		b->set(i, rh[i]);
