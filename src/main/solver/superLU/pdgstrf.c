@@ -266,7 +266,6 @@ pdgstrf(superlumt_options_t *superlumt_options, SuperMatrix *A, int *perm_r,
        ------------------------------------------------------------*/
 #elif ( MACH==PTHREAD )	/* Use pthread ... */
 #pragma message("Using Pthreads")
-
     /* Create nproc threads for concurrent factorization. */
     thread_id = (pthread_t *) SUPERLU_MALLOC(nprocs * sizeof(pthread_t));
     

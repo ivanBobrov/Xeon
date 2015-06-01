@@ -265,21 +265,23 @@ void MKLLUTest() {
 }
 
 void SuperLUTest() {
-	int size = 3;
-	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
+	int size = 1024 * 2;
+	ArraySquareMatrix* matrixA = new ArraySquareMatrix(size);
 	IVector* rh = new ArrayVector(size);
-	MatrixUtils::fillRandomMatrix(matrix);
+	MatrixUtils::fillRandomMatrix(matrixA);
 	MatrixUtils::fillRandomVector(rh);
 
-	IVector* check = new ArrayVector(rh);
+	HarwellBoeingMatrix* matrix = new HarwellBoeingMatrix(matrixA, 1);
+	//IVector* check = new ArrayVector(rh);
 
 	AbstractSolver* solver = new SuperLUSolver();
 	solver->setMatrix(matrix);
 	solver->prepare();
+	printf("Solve call\n");
 	solver->solve(rh);
 
 
-	IVector* probe = new ArrayVector(size);
+	/*IVector* probe = new ArrayVector(size);
 	MatrixUtils::product(matrix, rh, probe);
 
 	MatrixUtils::print(check, std::cout);
@@ -289,11 +291,11 @@ void SuperLUTest() {
 		printf("Success\n");
 	} else {
 		printf("Something went wrong\n");
-	}
+	}*/
 
 	printf("Done");
-	int ccc;
-	std::cin >> ccc;
+	//int ccc;
+	//std::cin >> ccc;
 }
 
 void PCRTest() {

@@ -30,35 +30,14 @@ void superlu_abort_and_exit(char* msg)
     exit (-1);
 }
 
-int gbCountToUse = 3;
-size_t gbSize = 1073741824;
-unsigned long * memPtrXeon = 0;
-unsigned long * memPtrCPU = 0;
-unsigned long * currPtrXeon = 0;
-unsigned long * currPtrCPU = 0;
-unsigned long totalBytes = 0;
-
 void *superlu_malloc(size_t size)
 {
-    unsigned long *buf;
-	if (memPtrXeon == 0) {
-        memPtrXeon = (unsigned long*)malloc(gbSize * gbCountToUse);
-        currPtrXeon = memPtrXeon;
-		memset(memPtrXeon, 0, gbSize * gbCountToUse);
-    }
-
-    //buf = (void *) malloc(size);
-    buf = currPtrXeon;
-    currPtrXeon += size;
-
-    totalBytes += size;
-    printf("totalBytes: %lu\n", totalBytes);
-    return (buf);
+    return (malloc(size));
 }
 
 void superlu_free(void *addr)
 {
-    //free (addr);
+    free (addr);
 }
 
 /* Deallocate the structure pointing to the actual storage of the matrix. */

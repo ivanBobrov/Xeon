@@ -30,8 +30,8 @@ void SuperLUSolver::prepare() {
 
 void SuperLUSolver::solve(IVector *b) {	
 	int size = matrix->size();
-    int processesNumber = 228;//228;
-    clock_t start, stop;
+    int processesNumber = 240;//228;
+    double start, stop;
 	int info;
 	
     SuperMatrix *input      = new SuperMatrix();
@@ -45,11 +45,13 @@ void SuperLUSolver::solve(IVector *b) {
     convertVectorToSM(rightHand, b);
     get_perm_c(0, input, perm_c);
 
-	start = clock();
-    pdgssv(processesNumber, input, perm_c, perm_r, L, U, rightHand, &info);
-	stop = clock();
 
-	printf("time superLU: %f", ((float)stop - (float)start) / CLOCKS_PER_SEC);
+    start = omp_get_wtime();
+    printf("Pdgssv call\n");
+    pdgssv(processesNumber, input, perm_c, perm_r, L, U, rightHand, &info);
+	stop = omp_get_wtime();
+
+	printf("time superLU: %f\n", (stop - start));
 
     convertSMToVector(b, rightHand);
 }

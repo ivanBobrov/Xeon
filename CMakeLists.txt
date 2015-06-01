@@ -13,6 +13,7 @@ if ( WIN32 )
 	set(CMAKE_CXX_FLAGS "/Qopenmp /GR-")
 else()
 	set(CMAKE_CXX_FLAGS "-fopenmp")
+	add_definitions(-D_OPENMP)
 endif()
 
 subdirs(src)
