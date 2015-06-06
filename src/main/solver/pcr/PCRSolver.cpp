@@ -41,15 +41,21 @@ void PCRSolver::solve(IVector *b) {
 	}
 
 	printf("start offload\n");
+	double offloadTime;
 	double start = omp_get_wtime();
 	
-	#pragma offload target(mic : 0) in(lower, main, upper : length(size)) inout(rh : length(size))
+	#pragma offload target(mic : 0) in(lower, main, upper : length(size)) inout(rh : length(size)) out(offloadTime)
 	{
+		double offloadStart = omp_get_wtime();
+		
 		PCRKernel(lower, main, upper, rh, rh, size, 240);
+		
+		double offloadStop = omp_get_wtime();
+		offloadTime = offloadStop - offloadStart;
 	}
 	
 	double stop =  omp_get_wtime();
-	printf("offloading procedure done : %f\n", stop - start);
+	printf("offloading procedure done : %f | clean : %f\n", stop - start, offloadTime);
 	#pragma omp for
 	for (int i = 0; i < size; i++) {
 		b->set(i, rh[i]);
@@ -74,14 +80,14 @@ void PCRSolver::PCRKernel(double* oa, double* ob, double* oc, double *bv, double
     double* bNew = new double[actSize];
 	double*	cNew = new double[actSize];
     double* dNew = new double[actSize];
-
+	
     #pragma omp parallel num_threads(numThreads)
     {
         int delta = 1;
         const unsigned int systemSize = (unsigned int) actSize;
         int iteration = (int) (log(systemSize/2) / M_LOG2);
 
-        #pragma omp for
+        #pragma omp for nowait
         for (int i = 0; i < size; i++) {
             a[i] = oa[i];
             b[i] = ob[i];
@@ -96,11 +102,9 @@ void PCRSolver::PCRKernel(double* oa, double* ob, double* oc, double *bv, double
             c[i] = 0;
             d[i] = 1;
         }
-
-        
-
+		
         for (int j = 0; j < iteration; j++) {
-            #pragma omp for
+            #pragma omp for schedule(dynamic, 128)
             for (int i = 0; i < systemSize; i++) {
                 if (i < delta) {
                     double tmp2 = c[i] / b[i + delta];
@@ -126,7 +130,7 @@ void PCRSolver::PCRKernel(double* oa, double* ob, double* oc, double *bv, double
                 }
             }
 
-            #pragma omp for
+            #pragma omp for schedule(dynamic, 128)
             for (int i = 0; i < systemSize; i++) {
                 b[i] = bNew[i];
                 d[i] = dNew[i];

@@ -22,7 +22,7 @@
 * 3. Exceptions
 */
 
-void PCRTest();
+void PCRTest(int size);
 void MKLTDTest();
 void MKLLUTest();
 void SuperLUTest(int size);
@@ -176,11 +176,14 @@ void run() {
 }*/
 
 int main(int argc, const char* argv[]) {
+	int size = atoi(argv[1]);
+	
 	//run();
-	//PCRTest();
+	
 	//MKLTDTest();
 	//MKLLUTest();
-	SuperLUTest(atoi(argv[1]));
+	PCRTest(size);
+	//SuperLUTest(size);
 	return 0;
 
 	/*std::cout << "Running tests..." << std::endl << std::endl;
@@ -300,8 +303,9 @@ void SuperLUTest(int size) {
 	//system("pause");
 }
 
-void PCRTest() {
-	int size = 1024 * 1;
+void PCRTest(int size) {
+	//int size = 1024 * 1;
+	size *= 1024;
 	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
 	MatrixUtils::fillRandomMatrix(matrix);
@@ -328,8 +332,7 @@ void PCRTest() {
 	}
 	*/
 	printf("Done");
-	int ccc;
-	std::cin >> ccc;
+	//system("pause");
 
 }
 
