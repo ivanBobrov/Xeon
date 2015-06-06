@@ -4,13 +4,14 @@
 #ifdef MKL
 
 #include "AbstractSolver.h"
+#include "HarwellBoeingMatrix.h"
 #include <mkl.h>
 #include <stdio.h>
 #include <omp.h>
 
 class MKLLUSolver : public AbstractSolver {
 private:
-	ISquareMatrix* matrix;
+	HarwellBoeingMatrix* matrix;
 public:
 	MKLLUSolver();
 

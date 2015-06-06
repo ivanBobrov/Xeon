@@ -1,6 +1,8 @@
 #ifdef MKL
 
 #include "MKLTDSolver.h"
+#include <fstream>
+#include <iostream>
 
 MKLTDSolver::MKLTDSolver() {
 	//Nothing to do
@@ -30,7 +32,7 @@ void MKLTDSolver::solve(IVector *b) {
 	}
 
 	printf("solving\n");
-	//mkl_mic_enable();
+	mkl_mic_enable();
 	mkl_set_num_threads(1);
 	//mkl_mic_set_workdivision(MKL_TARGET_HOST, 0, 0.0);
 	//mkl_mic_set_workdivision(MKL_TARGET_MIC, 0, 1.0);
@@ -38,7 +40,10 @@ void MKLTDSolver::solve(IVector *b) {
 	dgtsv(&size, &nrhs, lower+1, main, upper, rh, &size, &info);
 	double stop =  omp_get_wtime();
 	
+	std::ofstream file("out.txt", std::ios_base::app); 
+	file << stop - start << std::endl;
 	printf("done : %f\n", stop - start);
+	file.close();
 
 	#pragma omp for
 	for (int i = 0; i < size; i++) {

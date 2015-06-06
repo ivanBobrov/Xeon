@@ -25,7 +25,7 @@
 void PCRTest();
 void MKLTDTest();
 void MKLLUTest();
-void SuperLUTest();
+void SuperLUTest(int size);
 
 bool checkSolver() {
 	#pragma offload target(mic : 0)
@@ -180,7 +180,7 @@ int main(int argc, const char* argv[]) {
 	//PCRTest();
 	//MKLTDTest();
 	//MKLLUTest();
-	SuperLUTest();
+	SuperLUTest(atoi(argv[1]));
 	return 0;
 
 	/*std::cout << "Running tests..." << std::endl << std::endl;
@@ -200,7 +200,7 @@ int main(int argc, const char* argv[]) {
 }
 
 void MKLTDTest() {
-	int size = 1024 * 1024 * 32;
+	int size = 1024 * 8;
 	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
 	MatrixUtils::fillRandomMatrix(matrix);
@@ -228,22 +228,24 @@ void MKLTDTest() {
 	}*/
 
 	printf("Done");
-	int ccc;
-	std::cin >> ccc;
+	system("pause");
 }
 
 void MKLLUTest() {
-	int size = 1024 * 5;
-	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
+	int size = 10240;
+	ArraySquareMatrix* matrixA = new ArraySquareMatrix(size);
 	IVector* rh = new ArrayVector(size);
-	MatrixUtils::fillRandomMatrix(matrix);
+	MatrixUtils::fillRandomMatrix(matrixA);
 	MatrixUtils::fillRandomVector(rh);
-
+	
 	IVector* check = new ArrayVector(rh);
+
+	HarwellBoeingMatrix* matrix = new HarwellBoeingMatrix(matrixA, 90);
 
 	AbstractSolver* solver = new MKLLUSolver();
 	solver->setMatrix(matrix);
 	solver->prepare();
+	printf("Solve call\n");
 	solver->solve(rh);
 
 
@@ -259,19 +261,20 @@ void MKLLUTest() {
 		printf("Something went wrong\n");
 	}*/
 
-	printf("Done");
-	int ccc;
-	std::cin >> ccc;
+	printf("Done\n");
+	system("pause");
 }
 
-void SuperLUTest() {
-	int size = 1024 * 2;
+void SuperLUTest(int size) {
+	//size = 1024 * 1;
 	ArraySquareMatrix* matrixA = new ArraySquareMatrix(size);
+	//TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
+	printf("Fill\n");
 	MatrixUtils::fillRandomMatrix(matrixA);
 	MatrixUtils::fillRandomVector(rh);
-
-	HarwellBoeingMatrix* matrix = new HarwellBoeingMatrix(matrixA, 1);
+	printf("Create\n");
+	HarwellBoeingMatrix* matrix = new HarwellBoeingMatrix(matrixA, 90);
 	//IVector* check = new ArrayVector(rh);
 
 	AbstractSolver* solver = new SuperLUSolver();
@@ -294,12 +297,11 @@ void SuperLUTest() {
 	}*/
 
 	printf("Done");
-	//int ccc;
-	//std::cin >> ccc;
+	//system("pause");
 }
 
 void PCRTest() {
-	int size = 1024 * 1024 * 32;
+	int size = 1024 * 1;
 	TridiagonalMatrix* matrix = new TridiagonalMatrix(size);
 	IVector* rh = new ArrayVector(size);
 	MatrixUtils::fillRandomMatrix(matrix);

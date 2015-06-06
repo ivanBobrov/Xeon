@@ -32,6 +32,14 @@ void PCRSolver::solve(IVector *b) {
 		rh[i] = b->get(i);
 	}
 
+	int a = 2;
+	#pragma offload target(mic : 0) inout(a)
+	{
+		for (int i = 0; i < 10; i++) {
+			a*=2;
+		}
+	}
+
 	printf("start offload\n");
 	double start = omp_get_wtime();
 	

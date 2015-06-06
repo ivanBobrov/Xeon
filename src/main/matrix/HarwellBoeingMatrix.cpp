@@ -19,8 +19,8 @@ HarwellBoeingMatrix::HarwellBoeingMatrix(ISquareMatrix *squareMatrix, double eps
     std::vector<double> *vValues = new std::vector<double>();
     std::vector<int> *vRowIndex = new std::vector<int>();
     std::vector<int> *vColBegins = new std::vector<int>();
-
-    int nonZeros = 0;
+    
+	int nonZeros = 0;
     for (int j = 0; j < mSize; j++) {
         vColBegins->push_back(nonZeros);
         for (int i = 0; i < mSize; i++) {

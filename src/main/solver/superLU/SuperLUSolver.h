@@ -8,6 +8,7 @@
 
 #define EXIT return
 #include "time.h"
+#include "omp.h"
 #include <stdio.h>
 #include "pdsp_defs.h"
 
@@ -15,10 +16,6 @@ class SuperLUSolver : public AbstractSolver {
 private:
     static const double EPSILON;
     HarwellBoeingMatrix *matrix;
-
-    void convertToSuperMatrix(SuperMatrix *superMatrix, HarwellBoeingMatrix *ncMatrix);
-    void convertVectorToSM(SuperMatrix *superMatrix, IVector *b);
-    void convertSMToVector(IVector *out, SuperMatrix *matrix);
 
 public:
     SuperLUSolver();

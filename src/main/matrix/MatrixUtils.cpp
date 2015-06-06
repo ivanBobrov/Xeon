@@ -120,6 +120,10 @@ double MatrixUtils::getRandomDouble(double minValue, double maxValue) {
     return minValue + value * (maxValue - minValue);
 }
 
+int MatrixUtils::getRandomInt(int minValue, int maxValue) {
+	return minValue + (rand() % (maxValue - minValue));
+}
+
 void MatrixUtils::fillRandomMatrix(IMatrix *matrix) {
     srand((unsigned int)time(NULL));
 
@@ -128,6 +132,20 @@ void MatrixUtils::fillRandomMatrix(IMatrix *matrix) {
             matrix->set(i, j, getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
         }
     }
+}
+
+void MatrixUtils::fillRandomMatrix(IMatrix *matrix, int nonZerosCount) {
+    srand((unsigned int)time(NULL));
+	
+	int rowCount = matrix->rowCount();
+	int colCount = matrix->columnCount();
+
+	for (int iter = 0; iter < nonZerosCount; iter++) {
+		int i = getRandomInt(0, rowCount);
+		int j = getRandomInt(0, colCount);
+		
+		matrix->set(i, j, getRandomDouble(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE));
+	}
 }
 
 void MatrixUtils::fillRandomMatrix(TridiagonalMatrix *matrix) {

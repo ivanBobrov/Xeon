@@ -99,13 +99,13 @@ sp_ienv(int ispec)
 #else
 	case 1: return (1);
 	case 2: return (6);
-	case 3: return (1);
-	case 4: return (1000);
-	case 5: return (40);
+	case 3: return (8);
+	case 4: return (512);
+	case 5: return (256);
 #endif
-        case 6: return (10000000);
-        case 7: return (10000000);
-        case 8: return (10000000);
+        case 6: return (60000000);
+        case 7: return (60000000);
+        case 8: return (60000000);
     }
 
     /* Invalid value for ISPEC */

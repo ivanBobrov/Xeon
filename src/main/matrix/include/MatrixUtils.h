@@ -18,6 +18,7 @@ private:
     static const int DEFAULT_MAX_VALUE = 100;
 
     static double getRandomDouble(double minValue, double maxValue);
+	static int getRandomInt(int minValue, int maxValue);
 
 public:
     static void product(IMatrix const *A, IMatrix const *B, IMatrix *result);
@@ -29,6 +30,7 @@ public:
     static void print(IMatrix const *matrix, std::ostream &out, int symbols, int precision);
     static void print(IVector const *vector, std::ostream &out, int symbols, int precision);
     static void fillRandomMatrix(IMatrix *matrix);
+	static void fillRandomMatrix(IMatrix *matrix, int nonZerosCount);
     static void fillRandomMatrix(TridiagonalMatrix *matrix);
     static void fillRandomVector(IVector *vector);
 
